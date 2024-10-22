@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('main')
 
-<div class="row">
-    <h5><i class="bi bi-plus-square-fill"></i> Add New Product</h5>
-    <hr>
+<div class="row justify-content-center">
+    <h5 class="text-center"><i class="bi bi-plus-square-fill"></i> Add New Product</h5>
+    <hr class="mb-4 w-100">
 
     <!-- Breadcrumb -->
-    <nav class="my-3">
+    <nav class="my-3 w-100">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="/">Home</a>
@@ -16,23 +16,23 @@
     </nav>
 
     <!-- Form Section -->
-    <div class="col-md-6">
+    <div class="col-md-8 col-lg-6">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="name" class="form-label">Product Name</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                        id="name" name="name" placeholder="Enter product name" 
-                        value="{{ old('name') }}">
-                    @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+            <!-- Product Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Product Name</label>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                    id="name" name="name" placeholder="Enter product name" 
+                    value="{{ old('name') }}">
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="row mt-3">
+            <!-- MRP and Price -->
+            <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="mrp" class="form-label">MRP</label>
                     <input type="text" class="form-control @error('mrp') is-invalid @enderror" 
@@ -52,33 +52,30 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" 
-                        id="description" name="description" >{{ old('description') }}</textarea>
-                    @error('description')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control @error('description') is-invalid @enderror" 
+                    id="description" name="description" placeholder="Enter product description">{{ old('description') }}</textarea>
+                @error('description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <label for="image" class="form-label">Product Image</label>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                        id="image" name="image">
-                    @error('image')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+            <!-- Product Image -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Product Image</label>
+                <input type="file" class="form-control @error('image') is-invalid @enderror" 
+                    id="image" name="image">
+                @error('image')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Save Product</button>
-                    <button type="reset" class="btn btn-danger">Clear All</button>
-                </div>
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save Product</button>
+                <button type="reset" class="btn btn-danger">Clear All</button>
             </div>
         </form>
     </div>

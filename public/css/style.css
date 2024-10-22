@@ -17,81 +17,147 @@
     padding: 0.5em;
     border-radius: 0.7em;
 }
-/* Table row entrance animation with delay */
-@keyframes slideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Animate table rows with staggered delay */
-  tbody tr {
-    animation: slideIn 0.6s ease-in-out;
-    animation-delay: calc(0.1s * var(--animation-order));
-    animation-fill-mode: both;
-  }
-  
-  /* Image scaling with bounce effect on hover */
-  td img {
-    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
-                box-shadow 0.3s ease-in-out;
-  }
-  
-  td img:hover {
-    transform: scale(1.3);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Button hover with subtle pulse */
-  .btn {
-    transition: background-color 0.3s ease, 
-                transform 0.3s ease-in-out;
-  }
-  
-  .btn:hover {
-    background-color: #0069d9;
-    transform: scale(1.05);
-  }
-  
-  /* Pagination ripple effect */
-  .pagination a {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    transition: color 0.4s;
-    z-index: 1;
-  }
-  
-  .pagination a::before {
-    content: "";
-    position: absolute;
-    background: rgba(0, 123, 255, 0.3);
-    width: 300%;
-    height: 300%;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.5s ease;
-    z-index: -1;
-  }
-  
-  .pagination a:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  
-  .pagination a:hover {
-    color: white;
-  }
-  
-  .pagination .active a {
-    color: white;
+/* Global Styles */
+body {
+  background: linear-gradient(to right, #e3f2fd, #fff);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-  }  
+/* Page Title */
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40;
+}
 
-  
+/* New Product Button */
+.new-product-btn {
+  border-radius: 50px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.new-product-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Table Styles */
+.product-table {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.product-table th {
+  background-color: #007bff;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Alternating Row Colors */
+.product-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Row Hover Effect */
+.product-table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Image Styles */
+.product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-image:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Product Name Link */
+.product-name {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.product-name:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* MRP and Selling Price */
+.mrp {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.selling-price {
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Action Buttons */
+.action-buttons a {
+  margin: 0 5px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.action-buttons a:hover {
+  transform: scale(1.05);
+}
+
+/* Pagination */
+.pagination-wrapper {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-wrapper .pagination {
+  justify-content: center;
+}
+
+.pagination-wrapper .pagination a {
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 50px;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.pagination-wrapper .pagination a:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.pagination-wrapper .pagination .active a {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-table th,
+  .product-table td {
+      font-size: 0.9rem;
+  }
+
+  .product-name {
+      font-size: 0.9rem;
+  }
+}
+

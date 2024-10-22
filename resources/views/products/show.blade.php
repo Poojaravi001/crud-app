@@ -6,7 +6,7 @@
 <nav class="my-3">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a href="/">Home</a>
         </li>
         <li class="breadcrumb-item active">View Product</li>
     </ol>
@@ -22,9 +22,7 @@
             {{$product->description}}
         </p>
 
-        {{-- <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-        </p> --}}
+     
 
         <p class="fw-semibold">
             MRP: 
