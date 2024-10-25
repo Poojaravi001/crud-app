@@ -5,24 +5,19 @@
     <h5 class="text-center mb-4"><i class="bi bi-pencil-square"></i> Edit Product</h5>
 
     <!-- Breadcrumb -->
-    <nav class="my-3">
+    {{-- <nav class="my-3">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active">Edit Product</li>
         </ol>
-    </nav>
+    </nav> --}}
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <div class="row justify-content-center">
+  
         <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-        <div class="col-md-10 col-lg-8">
-            
-                
+              <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
 
                 <!-- Product Name -->
                 <div class="mb-4">
@@ -37,7 +32,7 @@
 
                 <!-- MRP and Price -->
                 <div class="row mb-4">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="mrp" class="form-label">MRP</label>
                         <input type="text" class="form-control @error('mrp') is-invalid @enderror" 
                                id="mrp" name="mrp" placeholder="Enter MRP" 
@@ -47,12 +42,24 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="price" class="form-label">Price</label>
+                    <div class="col-md-4">
+                        <label for="price" class="form-label">Selling Price</label>
                         <input type="text" class="form-control @error('price') is-invalid @enderror" 
-                               id="price" name="price" placeholder="Enter price" 
+                               id="price" name="price" placeholder="Enter selling price" 
                                value="{{ old('price', $product->price) }}">
+                        <small id="mrpError" class="text-danger small d-none">Selling Price must be lesser than or equal to MRP.</small>
                         @error('price')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="purchase_cost" class="form-label">Purchase Cost</label>
+                        <input type="text" class="form-control @error('purchase_cost') is-invalid @enderror" 
+                               id="purchase_cost" name="purchase_cost" placeholder="Enter purchase cost" 
+                               value="{{ old('purchase_cost', $product->purchase_cost) }}">
+                        <small id="costError" class="text-danger small d-none">Purchase Cost must be lesser than or equal to Selling Price.</small>
+                        @error('purchase_cost')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -99,8 +106,11 @@
                     <button type="reset" class="btn btn-danger">Clear All</button>
                 </div>
             </div>
-           
-      
+       
     </div>
 </div>
+
+
+
+
 @endsection

@@ -56,9 +56,9 @@
     <h4 class="text-white">Menu</h4>
     <a href="/"><i class="bi bi-bag"></i> Home</a>
     <a href="{{ route('purchases.index') }}"><i class="bi bi-bag"></i> Purchase</a>
-    <a href="#"><i class="bi bi-cart"></i> Sales</a>
-    <a href="#"><i class="bi bi-box-seam"></i> Stock Details</a>
-    <a href="#"><i class="bi bi-clipboard-data"></i> Report</a>
+    <a href="{{ route('customers.index') }}"><i class="bi bi-cart"></i> Sales</a>
+    {{-- <a href="#"><i class="bi bi-box-seam"></i> Stock Details</a>
+    <a href="#"><i class="bi bi-clipboard-data"></i> Report</a> --}}
   </div>
 
   <!-- Navbar -->

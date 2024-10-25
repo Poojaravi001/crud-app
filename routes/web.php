@@ -4,15 +4,18 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SalesItemController;
+use App\Http\Controllers\CustomerController;
 
 
 Route::get("/", [ProductController::class, 'index']);
-Route::get("products/create", [ProductController::class, 'create']);
+Route::get("products/create", [ProductController::class, 'create'])->name('products.create');
 Route::post("products/store", [ProductController::class, 'store'])->name('products.store');
-Route::get("products/{id}/show", [ProductController::class, 'show']);
-Route::get("products/{id}/edit", [ProductController::class, 'edit']);
+Route::get("products/{id}/show", [ProductController::class, 'show'])->name('products.show');
+Route::get("products/{id}/edit", [ProductController::class, 'edit'])->name('products.edit');
 Route::put("products/{id}/update", [ProductController::class, 'update'])->name('products.update');
 Route::get("products/{id}/delete", [ProductController::class, 'destroy']);
+Route::delete('products/{product}/image/{image}', [ProductController::class, 'destroyImage'])->name('products.image.destroy');
+
 
 //  route for customers
 Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
@@ -22,6 +25,7 @@ Route::post('/sales', [CustomerController::class, 'store'])->name('sales.store')
 Route::post('/sales/items', [SalesItemController::class, 'store'])->name('sales.items.store');
 Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
 Route::get('/product-details/{id}', [ProductController::class, 'getProductDetails']);
+
 
 
 

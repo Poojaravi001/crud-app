@@ -8,7 +8,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif --}}
 
-    <form action="{{ route('purchases.store') }}" method="POST">
+    <form action="{{ route('purchases.store') }}" method="POST" class="sales-form p-4 border rounded bg-light shadow animate-form">
         @csrf
 
         <!-- Supplier and Invoice Details -->
@@ -81,14 +81,14 @@
             </div>
         </div>
 
-        <!-- Add Item Button -->
+      
         <div class="row mb-3">
             <div class="col-md-6">
                 <button type="button" class="btn btn-secondary" id="addItemButton">Add Item</button>
             </div>
         </div>
 
-        <!-- Tax and Grand Total -->
+        
         <div class="row mb-3 align-items-center justify-content-between">
             <div class="col-md-2">
                 <label for="tax_percentage" class="form-label">Tax (%)</label>
@@ -194,7 +194,7 @@ function calculateRowTotal(row) {
     calculateGrandTotal(); // Update grand total
 }
 
-// Calculate Grand Total and Tax Amount
+
 function calculateGrandTotal() {
     let grandTotal = 0;
     let totalSubtotal = 0;
@@ -212,125 +212,91 @@ function calculateGrandTotal() {
     document.getElementById('grandTotal').value = grandTotal.toFixed(2);
 }
 
-// Recalculate Tax and Grand Total on Tax Percentage Change
+
 document.getElementById('tax_percentage').addEventListener('input', function () {
     calculateGrandTotal();
 });
 
 </script>
+
 <style>
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Light background color */
-    color: #343a40; /* Dark text color */
-}
-
-.container {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-    background-color: #ffffff; /* White background for the form */
-}
-
-/* Header Styles */
-h2 {
-    font-size: 1.75rem;
-    color: #007bff; /* Bootstrap primary color */
-}
-
-.animate-header {
-    transition: color 0.5s ease; /* Smooth transition for color change */
-}
-
-/* Form Input Styles */
-.form-label {
-    font-weight: bold;
-}
-
-.form-control {
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-    transition: border-color 0.3s; /* Smooth border transition */
-}
-
-.form-control:focus {
-    border-color: #007bff; /* Focus border color */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus shadow effect */
-}
-
-/* Button Styles */
-.btn {
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for buttons */
-}
-
-.btn:hover {
-    background-color: #0056b3; /* Darker shade for hover */
-    transform: translateY(-2px); /* Lift effect on hover */
-}
-
-.btn-danger {
-    background-color: #dc3545; /* Red color for remove button */
-}
-
-.btn-danger:hover {
-    background-color: #c82333; /* Darker shade for hover */
-}
-
-/* Item Row Styles */
-.item-row {
-    border-bottom: 1px solid #e9ecef; /* Separator for rows */
-    padding: 10px 0; /* Vertical padding */
-}
-
-.item-row:last-child {
-    border-bottom: none; /* Remove border for last row */
-}
-
-/* Aligning Elements */
-.align-items-center {
-    align-items: center; /* Center align items vertically */
-}
-
-.text-end {
-    text-align: end; /* Align text to the right */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .form-control {
-        font-size: 0.9rem; /* Smaller font on mobile */
+    /* General animation for header */
+    @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    .btn {
-        font-size: 0.9rem; /* Smaller button on mobile */
+    .animate-header {
+        animation: slideIn 1s ease-in-out;
     }
 
-    .item-row {
-        flex-direction: column; /* Stack items vertically */
+    /* Fade-in form on load */
+    .animate-form {
+        animation: fadeIn 1.2s ease-in-out;
     }
-}
 
-/* Animation for Add Item Button */
-#addItemButton {
-    margin-top: 20px;
-    animation: fadeIn 0.5s; /* Fade in effect */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
-    to {
-        opacity: 1;
+
+    /* Animation on input focus */
+    .animated-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
-}
 
-/* Total and Tax Styles */
-#taxAmount, #grandTotal {
-    font-weight: bold;
-}
+    /* Button hover animation */
+    .animated-btn {
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
+    .animated-btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Smaller label for Grand Total */
+    .small-label {
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    /* Additional styling for form fields */
+    .sales-form .form-label {
+        font-weight: bold;
+    }
+
+    .sales-form .form-control {
+        border-radius: 0.25rem;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    /* Smaller text for Grand Total */
+    .grand-total-text {
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+    .small-input {
+        font-size: 0.85rem;
+        display: inline-block;
+        width: auto;
+    }
 </style>
+
 @endsection

@@ -17,6 +17,8 @@
                     <th>Product</th>
                     <th>MRP</th>
                     <th>Selling Price</th>
+                    <th>Purchase Cost</th>
+                    <th>Stock</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -30,6 +32,8 @@
                     <td><a href="{{ route('products.show', $product->id) }}" class="product-name">{{ $product->name }}</a></td>
                     <td><span class="mrp">{{ $product->mrp }}</span></td>
                     <td><span class="selling-price">{{ $product->price }}</span></td>
+                    <td><span class="purchase-cost">{{ $product->purchase_cost }}</span></td>
+                    <td><span class="stock">{{ $product->stock() }}</span></td>
                     <td class="action-buttons">
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
                         

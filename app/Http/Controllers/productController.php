@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -11,7 +12,7 @@ class ProductController extends Controller
     // List Products with Pagination
     public function index()
     {
-        $products = Product::latest()->paginate(5);
+        $products = Product::with('images')->paginate(10);
         return view('products.index', ['products' => $products]);
     }
 
@@ -29,7 +30,8 @@ class ProductController extends Controller
             'description' => 'required|string',
             'mrp' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0|lt:mrp',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
+            'purchase_cost' => 'required|numeric|min:0|lte:mrp',
+           'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10000',
         ]);
 
@@ -47,6 +49,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'mrp' => $request->mrp,
             'price' => $request->price,
+            'purchase_cost' => $request->purchase_cost,
             'image' => $imageName,
         ]);
 
@@ -88,13 +91,14 @@ class ProductController extends Controller
             'mrp' => 'required|numeric',
             'price' => 'required|numeric|lt:mrp',
             'description' => 'nullable|string',
+            'purchase_cost' => 'nullable|numeric|lte:mrp',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $product = Product::findOrFail($id);
 
         // Update product fields
-        $product->update($request->only('name', 'mrp', 'price', 'description'));
+        $product->update($request->only('name', 'mrp', 'price', 'description','purchase_cost'));
 
         // Handle new images upload if any
         if ($request->hasFile('images')) {
@@ -146,4 +150,19 @@ class ProductController extends Controller
 
         return back()->with('success', 'Image deleted successfully.');
     }
+
+
+    public function getProductDetails($id)
+{
+    $product = Product::find($id);
+    
+    if ($product) {
+        return response()->json([
+            'mrp' => $product->mrp,
+            'rate' => $product->price,
+        ]);
+    }
+
+    return response()->json(['error' => 'Product not found'], 404);
+}
 }

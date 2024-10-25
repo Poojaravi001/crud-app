@@ -25,7 +25,7 @@ class PurchaseController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'receipt_no' => 'required|unique:purchases,receipt_no', // Ensure unique receipt_no
+            'receipt_no' => 'required|unique:purchases,receipt_no', 
             'receipt_date' => 'required|date',
             'supplier_id' => 'required',
             'invoice_no' => 'required',
@@ -39,7 +39,7 @@ class PurchaseController extends Controller
         // Store Purchase Items
         foreach ($request->products as $index => $productId) {
             PurchaseItem::create([
-                'purchase_id' => $purchase->id, // Associate the purchase item with the purchase
+                'purchase_id' => $purchase->id, 
                 'product_id' => $productId,
                 'quantity' => $request->quantities[$index],
                 'price' => $request->prices[$index],
