@@ -3,23 +3,30 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SalesItemController;
 
-// Home Route
-Route::get("/", [ProductController::class, 'index'])->name('home');
 
-// Product Routes
-Route::resource('products', ProductController::class)->except(['show', 'create', 'store', 'edit', 'update', 'destroy']);
-
-// Show Product
-Route::get("products/{id}/show", [ProductController::class, 'show'])->name('products.show');
-
-// Create Product
-Route::get("products/create", [ProductController::class, 'create'])->name('products.create');
+Route::get("/", [ProductController::class, 'index']);
+Route::get("products/create", [ProductController::class, 'create']);
 Route::post("products/store", [ProductController::class, 'store'])->name('products.store');
-
-// Edit Product
-Route::get("products/{id}/edit", [ProductController::class, 'edit'])->name('products.edit');
+Route::get("products/{id}/show", [ProductController::class, 'show']);
+Route::get("products/{id}/edit", [ProductController::class, 'edit']);
 Route::put("products/{id}/update", [ProductController::class, 'update'])->name('products.update');
+Route::get("products/{id}/delete", [ProductController::class, 'destroy']);
+
+//  route for customers
+Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
+Route::get('/sales/create', [CustomerController::class, 'create'])->name('sales.create');
+Route::post('/sales', [CustomerController::class, 'store'])->name('sales.store');
+Route::post('/sales/items', [SalesItemController::class, 'store'])->name('sales.items.store');
+Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+Route::get('/product-details/{id}', [ProductController::class, 'getProductDetails']);
+
+
+
+// Delete Product
+Route::delete("products/{id}/destroy", [ProductController::class, 'destroy'])->name('products.destroy');
 
 // Delete Product
 Route::delete("products/{id}/destroy", [ProductController::class, 'destroy'])->name('products.destroy');
