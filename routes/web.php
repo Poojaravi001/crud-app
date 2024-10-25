@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\productController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,22 +25,6 @@ Route:: get("products/{id}/show",[ProductController::class,'show']);
 
 Route:: get("products/{id}/edit",[ProductController::class,'edit']);
 
-// Delete Product
-Route::delete("products/{id}/destroy", [ProductController::class, 'destroy'])->name('products.destroy');
+Route:: put("products/{id}/update",[ProductController::class,'update'])->name('products.update');
 
-// Delete Product Image
-Route::delete("products/{product}/images/{image}", [ProductController::class, 'destroyImage'])->name('products.image.destroy');
-
-// Purchase Routes
-Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
-Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store'); // Use this for submission
-// List All Purchases
-Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
-
-// Create Purchase Form
-Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
-
-// Store Purchase Data
-Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store');
-
+Route:: get("products/{id}/delete",[ProductController::class,'destroy']);
