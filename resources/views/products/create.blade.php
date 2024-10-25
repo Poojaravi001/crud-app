@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="price" class="form-label">Price</label>
+                        <label for="price" class="form-label">selling Price</label>
                         <input type="text" class="form-control @error('price') is-invalid @enderror" 
                                id="price" name="price" placeholder="Enter price" value="{{ old('price') }}">
                         @error('price')
@@ -64,12 +64,14 @@
 
                 <!-- Product Image -->
                 <div class="mb-4">
-                    <label for="image" class="form-label">Product Image</label>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                           id="image" name="image">
-                    @error('image')
+                    <label for="images" class="form-label">Product Images</label>
+                    <input type="file" class="form-control @error('images') is-invalid @enderror" id="images" name="images[]" multiple>
+
+                    @error('images')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                
+                    <ul id="imageList" class="list-unstyled mt-3"></ul>
                 </div>
 
                 <!-- Buttons -->
@@ -81,5 +83,28 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('images').addEventListener('change', function (e) {
+        const imageList = document.getElementById('imageList');
+        imageList.innerHTML = ''; // Clear previous list
+
+        Array.from(e.target.files).forEach(file => {
+            const li = document.createElement('li');
+            li.textContent = file.name;
+            imageList.appendChild(li);
+        });
+    });
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+    const mrp = parseFloat(document.getElementById('mrp').value) || 0;
+    const price = parseFloat(document.getElementById('price').value) || 0;
+
+    if (price >= mrp) {
+        e.preventDefault(); // Prevent form submission
+        alert('The selling price must be less than the MRP.');
+    }
+});
+
+</script>
 
 @endsection

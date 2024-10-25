@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>S.No</th>
-                    <th>Image</th>
+                    
                     <th>Product</th>
                     <th>MRP</th>
                     <th>Selling Price</th>
@@ -27,17 +27,20 @@
                 @endphp
                 <tr>
                     <td>{{$index}}</td>
-                    <td>
-                        <img src="products/{{ $product->image }}" 
-                             class="product-image" 
-                             alt="{{ $product->name }}">
-                    </td>
-                    <td><a href="products/{{ $product->id }}/show" class="product-name">{{ $product->name }}</a></td>
+                    <td><a href="{{ route('products.show', $product->id) }}" class="product-name">{{ $product->name }}</a></td>
                     <td><span class="mrp">{{ $product->mrp }}</span></td>
                     <td><span class="selling-price">{{ $product->price }}</span></td>
                     <td class="action-buttons">
-                        <a href="products/{{ $product->id }}/edit" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
-                        <a href="products/{{ $product->id }}/delete" onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete</a>
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                        
+                        <!-- Delete Form -->
+                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

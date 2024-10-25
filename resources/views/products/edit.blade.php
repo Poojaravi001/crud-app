@@ -1,25 +1,28 @@
 @extends('layouts.app')
-@section('main')
 
+@section('main')
 <div class="container my-5">
     <h5 class="text-center mb-4"><i class="bi bi-pencil-square"></i> Edit Product</h5>
-    
+
     <!-- Breadcrumb -->
     <nav class="my-3">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/">Home</a>
-            </li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item active">Edit Product</li>
         </ol>
     </nav>
 
-    <!-- Form Section -->
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <div class="row justify-content-center">
+        <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
         <div class="col-md-10 col-lg-8">
-            <form action="/products/{{ $product->id }}/update" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+            
+                
 
                 <!-- Product Name -->
                 <div class="mb-4">
@@ -65,24 +68,39 @@
                     @enderror
                 </div>
 
-                <!-- Product Image -->
+                <!-- Add New Product Images -->
                 <div class="mb-4">
-                    <label for="image" class="form-label">Product Image</label>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                           id="image" name="image">
-                    @error('image')
+                    <label for="images" class="form-label">Add New Images</label>
+                    <input type="file" class="form-control @error('images.*') is-invalid @enderror" 
+                           id="images" name="images[]" multiple>
+                    @error('images.*')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+            </form>
+                <!-- Existing Images -->
+                <h6 class="mt-4">Current Images:</h6>
+                <div class="row mb-4">
+                    @foreach ($product->images as $image)
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ asset('products/' . $image->image) }}" alt="Product Image" class="img-fluid" style="height: 150px; object-fit: cover;">
+                            <h6 class="mt-3">{{ $image->image }}</h6>
+                            <form action="{{ route('products.image.destroy', [$product->id, $image->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this image?');" class="mt-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
 
-                <!-- Buttons -->
                 <div class="d-flex justify-content-between mt-4">
                     <button type="submit" class="btn btn-primary">Update Product</button>
                     <button type="reset" class="btn btn-danger">Clear All</button>
                 </div>
-            </form>
-        </div>
+            </div>
+           
+      
     </div>
 </div>
-
 @endsection

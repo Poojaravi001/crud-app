@@ -1,29 +1,42 @@
 <?php
 
-use App\Http\Controllers\productController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Home Route
+Route::get("/", [ProductController::class, 'index'])->name('home');
 
-Route:: get("/",[ProductController::class,'index']);
+// Product Routes
+Route::resource('products', ProductController::class)->except(['show', 'create', 'store', 'edit', 'update', 'destroy']);
 
-Route:: get("products/create",[ProductController::class,'create']);
+// Show Product
+Route::get("products/{id}/show", [ProductController::class, 'show'])->name('products.show');
 
-Route:: post("products/store",[ProductController::class,'store'])->name('products.store');
+// Create Product
+Route::get("products/create", [ProductController::class, 'create'])->name('products.create');
+Route::post("products/store", [ProductController::class, 'store'])->name('products.store');
 
-Route:: get("products/{id}/show",[ProductController::class,'show']);
+// Edit Product
+Route::get("products/{id}/edit", [ProductController::class, 'edit'])->name('products.edit');
+Route::put("products/{id}/update", [ProductController::class, 'update'])->name('products.update');
 
-Route:: get("products/{id}/edit",[ProductController::class,'edit']);
+// Delete Product
+Route::delete("products/{id}/destroy", [ProductController::class, 'destroy'])->name('products.destroy');
 
-Route:: put("products/{id}/update",[ProductController::class,'update'])->name('products.update');
+// Delete Product Image
+Route::delete("products/{product}/images/{image}", [ProductController::class, 'destroyImage'])->name('products.image.destroy');
 
-Route:: get("products/{id}/delete",[ProductController::class,'destroy']);
+// Purchase Routes
+Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store'); // Use this for submission
+// List All Purchases
+Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+
+// Create Purchase Form
+Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+
+// Store Purchase Data
+Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store');
+
