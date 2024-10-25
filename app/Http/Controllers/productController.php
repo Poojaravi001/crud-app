@@ -13,7 +13,6 @@ class ProductController extends Controller
         return view('products.index', ['products' => $products]);
     }
 
-
     public function create()
     {
         return view('products.create');
@@ -21,8 +20,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request);
-
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -44,8 +41,6 @@ class ProductController extends Controller
         $product->save();
         return back()->with('success', 'Product Details Added successfully..');
     }
-
-
 
     public function show($id)
     {
@@ -90,20 +85,18 @@ class ProductController extends Controller
         $product->delete();
         return back()->withSuccess('Product Deleted successfully..');
     }
+
     public function getProductDetails($id)
-{
-    $product = Product::find($id);
-    
-    if ($product) {
-        return response()->json([
-            'mrp' => $product->mrp,
-            'rate' => $product->price,
-        ]);
+    {
+        $product = Product::find($id);
+        
+        if ($product) {
+            return response()->json([
+                'mrp' => $product->mrp,
+                'rate' => $product->price,
+            ]);
+        }
+
+        return response()->json(['error' => 'Product not found'], 404);
     }
-
-    return response()->json(['error' => 'Product not found'], 404);
-}
-
-
-
 }
