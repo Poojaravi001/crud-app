@@ -3,10 +3,10 @@
 @section('main')
 <div class="container my-5">
     <h2 class="text-center mb-4 animate-header"><i class="bi bi-bag"></i> Purchase</h2>
-{{-- 
+
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
-    @endif --}}
+    @endif
 
     <form action="{{ route('purchases.store') }}" method="POST">
         @csrf
@@ -73,11 +73,10 @@
                     <input type="number" class="form-control total-input" name="totals[0]" readonly>
                 </div>
                 <div class="col-md-2 text-end">
-    <button type="button" class="btn btn-danger removeItemButton mt-4">
-        <i class="bi bi-trash"></i> <!-- Bootstrap Trash Icon -->
-    </button>
-</div>
-
+                    <button type="button" class="btn btn-danger removeItemButton mt-4">
+                        <i class="bi bi-trash"></i> <!-- Bootstrap Trash Icon -->
+                    </button>
+                </div>
             </div>
         </div>
 
