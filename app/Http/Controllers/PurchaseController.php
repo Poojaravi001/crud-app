@@ -12,7 +12,7 @@ class PurchaseController extends Controller
 {
     public function index()
     {
-        // Get the maximum receipt_no and increment it by 1
+       
         $newReceiptNo = Purchase::max('receipt_no') + 1;
 
         $suppliers = Supplier::all();
@@ -23,7 +23,7 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request data
+      
         $validatedData = $request->validate([
             'receipt_no' => 'required|unique:purchases,receipt_no', 
             'receipt_date' => 'required|date',
@@ -33,10 +33,10 @@ class PurchaseController extends Controller
             'grand_total' => 'required|numeric',
         ]);
 
-        // Create the Purchase
+       
         $purchase = Purchase::create($validatedData);
 
-        // Store Purchase Items
+       
         foreach ($request->products as $index => $productId) {
             PurchaseItem::create([
                 'purchase_id' => $purchase->id, 

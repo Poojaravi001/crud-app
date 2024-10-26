@@ -149,13 +149,13 @@ function addItemRow() {
     itemCount++; // Increment the item count for future rows
 }
 
-// Event Delegation for Remove Item Button
+
 document.getElementById('items-container').addEventListener('click', function (e) {
     if (e.target.closest('.removeItemButton')) {
         if (confirm('Are you sure you want to remove this item?')) {
             e.target.closest('.item-row').remove();
-            updateItemCount(); // Update item count after removing a row
-            calculateGrandTotal(); // Recalculate total after row removal
+            updateItemCount(); 
+            calculateGrandTotal(); 
         }
     }
 });

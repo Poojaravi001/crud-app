@@ -9,7 +9,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    // Explicitly define the table name
+    
     protected $table = 'purchases';
 
     protected $fillable = [
@@ -21,7 +21,7 @@ class Purchase extends Model
         'grand_total',
     ];
 
-    // Relationship with PurchaseItem
+   
     public function items()
     {
         return $this->hasMany(PurchaseItem::class, 'purchase_id'); // Foreign key relation
