@@ -23,7 +23,7 @@
 
        
         <div class="col-md-4">
-            <label for="customerName" class="form-label">Customer Name</label>
+         <label for="customerName" class="form-label">Customer Name</label>
             <select class="form-control animated-input" id="customerName" name="customer_name" required>
                 <option value="">Select Customer</option>
                 @foreach($customers as $customer)

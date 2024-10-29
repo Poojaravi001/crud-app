@@ -46,7 +46,7 @@
                 <div class="col-md-3">
                     <label for="product0" class="form-label">Product</label>
                     <select class="form-control product-select" name="products[0]" required>
-                        <option value="">Select Product</option>
+                    <option value="">Select Product</option>
                         @foreach($products as $product)
                             <option value="{{ $product->id }}" 
                                 data-price="{{ $product->price }}" 
@@ -72,7 +72,7 @@
                     <label for="total0" class="form-label">Total (₹)</label>
                     <input type="number" class="form-control total-input" name="totals[0]" readonly>
                 </div>
-                <div class="col-md-2 text-end">
+            <div class="col-md-2 text-end">
     <button type="button" class="btn btn-danger removeItemButton mt-4">
         <i class="bi bi-trash"></i> <!-- Bootstrap Trash Icon -->
     </button>
